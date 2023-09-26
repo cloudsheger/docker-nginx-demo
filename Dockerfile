@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM ubuntu/nginx
 
 LABEL name="info@cloudsheger.com"
 
