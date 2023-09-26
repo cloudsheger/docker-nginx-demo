@@ -1,23 +1,17 @@
-FROM ubuntu:16.04
+FROM nginx:latest
 
 LABEL name="info@cloudsheger.com"
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install net-tools nginx
-
-RUN useradd -ms /bin/bash aurora
-
-RUN rm -f /etc/nginx/fastcgi.conf /etc/nginx/fastcgi_params && \
-    rm -f /etc/nginx/snippets/fastcgi-php.conf /etc/nginx/snippets/snakeoil.conf
+COPY src/html /usr/share/nginx/html
 
 EXPOSE 80
-EXPOSE 443
+EXPOSE 8443
 
-COPY nginx/ssl /etc/nginx/ssl
-COPY nginx/snippets /etc/nginx/snippets
-COPY nginx/sites-available /etc/nginx/sites-available
+#1. How to build dockerfile
+# docker build -t docker-nginx -f Dockerfile .
 
+#2. How to run dockerfile
+# docker run --name docker-nginx -p 80:80 -d nginx
 
-ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
+#3. Map custom index.html to nginx default webpage file
+#docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
