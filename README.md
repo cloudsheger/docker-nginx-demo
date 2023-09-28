@@ -1,15 +1,42 @@
-## How to build dockerfile
+## How to build,tag and push nginx docker images
+
+### How to build dockerfile & create docker image in your local environment
 ```
- docker build -t docker-nginx -f Dockerfile .
+ docker build -t nginx-docker -f Dockerfile .
 ```
 
-## How to run dockerfile
+### How to run docker image
 ```
-docker run --name <container-name-any> -p 80:80 -d docker-nginx
+docker run --name <container-name-any> -p 80:80 -d nginx-docker
 ```
-## Map custom index.html to nginx default webpage file
+
+### how to push docker image
+
+1. Create tag for your local image
 ```
-docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
+docker tag local-image:tagname new-repo:tagname
+docker tag nginx-docker:latest cloudsheger/nginx-docker:v1.0
+```
+2. Push your local docker image to dockerhub
+
+
+```
+docker push <dockerhub-username>/<dockerhub-repoName>:tagname
+docker push cloudsheger/nginx-docker:v1.0
+```
+
+### Some docker tips
+
+### How to display running docker containers
+
+```
+docker ps
+```
+
+### How to display all docker containers
+
+```
+docker ps -a
 ```
 
 ### How to clean up docker images
@@ -21,3 +48,12 @@ docker rmi <image-ID>
 docker rm -f <container-ID>
 ```
 
+### How to see logs in docker conatiner
+```
+docker logs -f <Container-ID>
+```
+
+### How to see see docker images in your local 
+```
+docker images
+```
