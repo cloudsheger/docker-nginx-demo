@@ -2,7 +2,7 @@
 
 ### How to build dockerfile & create docker image in your local environment
 ```
- docker build -t nginx-docker -f Dockerfile .
+ docker build -t nginx-docker .
 ```
 
 ### How to run docker image
